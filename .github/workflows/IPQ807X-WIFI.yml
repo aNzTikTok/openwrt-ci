@@ -107,8 +107,9 @@ jobs:
     - name: Run DIY Script
       run: |
         cd $OPENWRT_PATH
-        chmod +x $DIY_SCRIPT
-        ./$DIY_SCRIPT  
+        curl -L -o diy-script.sh https://raw.githubusercontent.com/QMODEM/openwrt-ci/refs/heads/main/diy-script.sh
+        chmod +x diy-script.sh
+       ./diy-script.sh
     
     - name: Install Feeds
       run: |
