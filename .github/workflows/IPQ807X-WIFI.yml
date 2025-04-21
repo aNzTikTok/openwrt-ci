@@ -107,7 +107,7 @@ jobs:
     - name: Run DIY Script
       run: |
         cd $OPENWRT_PATH
-        curl -L -o diy-script.sh https://raw.githubusercontent.com/QMODEM/openwrt-ci/refs/heads/main/diy-script.sh
+        curl -L -o diy-script.sh https://raw.githubusercontent.com/QMODEM/openwrt-ci/main/diy-script.sh
         chmod +x diy-script.sh
        ./diy-script.sh
     
