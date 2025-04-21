@@ -33,15 +33,6 @@ git clone --depth=1 https://github.com/aNzTikTok/luci-app-ttl package/luci-app-t
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 
-# Change Argon background image
-# cp -f $GITHUB_WORKSPACE/images/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-
-# Fix hostapd build error
-cp -f $GITHUB_WORKSPACE/scripts/011-fix-mbo-modules-build.patch package/network/services/hostapd/patches/011-fix-mbo-modules-build.patch
-
-# Fix xfsprogs error on armv8
-sed -i 's/TARGET_CFLAGS.*/TARGET_CFLAGS += -DHAVE_MAP_SYNC -D_LARGEFILE64_SOURCE/g' feeds/packages/utils/xfsprogs/Makefile
-
 # Fix Makefile paths
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|../../lang/golang/golang-package.mk|$(TOPDIR)/feeds/packages/lang/golang/golang-package.mk|g' {}
