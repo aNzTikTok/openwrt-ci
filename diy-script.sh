@@ -11,6 +11,7 @@ function git_sparse_clone() {
 }
 
 # Add extra plugins 
+git clone --depth=1 https://github.com/QMODEM/quectel-CM-5G package/quectel-CM-5G
 git clone --depth=1 https://github.com/iFHax/luci-app-3ginfo-lite package/luci-app-3ginfo-lite
 git clone --depth=1 https://github.com/iFHax/luci-app-modem package/luci-app-modem
 git clone --depth=1 https://github.com/iFHax/luci-app-modemband package/luci-app-modemband
