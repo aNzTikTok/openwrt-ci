@@ -14,6 +14,7 @@ function git_sparse_clone() {
 git clone --depth=1 https://github.com/openwrt/luci.git package/feeds/luci
 git clone --depth=1 https://github.com/QMODEM/telegrambot package/telegrambot
 git clone --depth=1 https://github.com/QMODEM/atinout package/atinout
+git clone --depth=1 https://github.com/QMODEM/luci-app-atinout-mod package/luci-app-atinout-mod
 git clone --depth=1 https://github.com/QMODEM/quectel-CM-5G package/quectel-CM-5G
 git clone --depth=1 https://github.com/iFHax/luci-app-3ginfo-lite package/luci-app-3ginfo-lite
 git clone --depth=1 https://github.com/iFHax/luci-app-modem package/luci-app-modem
