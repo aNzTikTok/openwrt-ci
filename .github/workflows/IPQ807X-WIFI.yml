@@ -103,6 +103,12 @@ jobs:
         ccache: false
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
+
+    - name: Run DIY Script
+      run: |
+        cd $OPENWRT_PATH
+        chmod +x $DIY_SCRIPT
+        ./$DIY_SCRIPT  
     
     - name: Install Feeds
       run: |
