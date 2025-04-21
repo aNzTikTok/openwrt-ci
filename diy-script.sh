@@ -39,3 +39,12 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|../../lang/g
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|PKG_SOURCE_URL:=@GHREPO|PKG_SOURCE_URL:=https://github.com|g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|PKG_SOURCE_URL:=@GHCODELOAD|PKG_SOURCE_URL:=https://codeload.github.com|g' {}
 
+# Clone tool-up repo and move csstidy and luasrcdiet to tools/
+git clone --depth=1 https://github.com/QMODEM/tool-up.git tool-up
+mv tool-up/csstidy tools/csstidy
+mv tool-up/luasrcdiet tools/luasrcdiet
+rm -rf tool-up
+
+# Append to tools/Makefile if not already present
+grep -q 'csstidy' tools/Makefile || echo 'tools-y += csstidy' >> tools/Makefile
+grep -q 'luasrcdiet' tools/Makefile || echo 'tools-y += luasrcdiet' >> tools/Makefile
