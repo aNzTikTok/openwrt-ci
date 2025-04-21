@@ -13,7 +13,8 @@ function git_sparse_clone() {
 # Add extra plugins 
 git clone --depth=1 https://github.com/openwrt/luci.git package/feeds/luci
 git clone --depth=1 https://github.com/QMODEM/telegrambot package/telegrambot
-git clone --depth=1 https://github.com/beralt/atinout package/atinout
+git clone --depth=1 https://github.com/QMODEM/atinout package/atinout
+git clone --depth=1 https://github.com/QMODEM/luci-app-atinout-mod package/luci-app-atinout-mod
 git clone --depth=1 https://github.com/QMODEM/quectel-CM-5G package/quectel-CM-5G
 git clone --depth=1 https://github.com/iFHax/luci-app-3ginfo-lite package/luci-app-3ginfo-lite
 git clone --depth=1 https://github.com/iFHax/luci-app-modem package/luci-app-modem
@@ -32,18 +33,18 @@ git clone --depth=1 https://github.com/aNzTikTok/luci-app-ttl package/luci-app-t
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
 git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 
-# Change Argon background image
-# cp -f $GITHUB_WORKSPACE/images/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-
-# Fix hostapd build error
-cp -f $GITHUB_WORKSPACE/scripts/011-fix-mbo-modules-build.patch package/network/services/hostapd/patches/011-fix-mbo-modules-build.patch
-
-# Fix xfsprogs error on armv8
-sed -i 's/TARGET_CFLAGS.*/TARGET_CFLAGS += -DHAVE_MAP_SYNC -D_LARGEFILE64_SOURCE/g' feeds/packages/utils/xfsprogs/Makefile
-
 # Fix Makefile paths
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|../../luci.mk|$(TOPDIR)/feeds/luci/luci.mk|g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|../../lang/golang/golang-package.mk|$(TOPDIR)/feeds/packages/lang/golang/golang-package.mk|g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|PKG_SOURCE_URL:=@GHREPO|PKG_SOURCE_URL:=https://github.com|g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's|PKG_SOURCE_URL:=@GHCODELOAD|PKG_SOURCE_URL:=https://codeload.github.com|g' {}
 
+# Clone tool-up repo and move csstidy and luasrcdiet to tools/
+git clone --depth=1 https://github.com/QMODEM/tool-up.git tool-up
+mv tool-up/csstidy tools/csstidy
+mv tool-up/luasrcdiet tools/luasrcdiet
+rm -rf tool-up
+
+# Append to tools/Makefile if not already present
+grep -q 'csstidy' tools/Makefile || echo 'tools-y += csstidy' >> tools/Makefile
+grep -q 'luasrcdiet' tools/Makefile || echo 'tools-y += luasrcdiet' >> tools/Makefile
