@@ -76,7 +76,7 @@ jobs:
         cd $OPENWRT_PATH
         [ -f .config ] && rm -f .config
         curl -L -o .config https://raw.githubusercontent.com/aNzTikTok/openwrt-ci/main/raw/aw1000.config
-        cat .config
+        # cat .config
         make defconfig
         SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
         echo "SOURCE_REPO=$SOURCE_REPO" >> $GITHUB_ENV
@@ -84,6 +84,12 @@ jobs:
         echo "DEVICE_TARGET=$DEVICE_TARGET" >> $GITHUB_ENV
         DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
         echo "DEVICE_SUBTARGET=$DEVICE_SUBTARGET" >> $GITHUB_ENV
+
+        echo "-----------------------------------------------------------"
+        echo " 😁 NAME       : IPQ807X-WIFI"
+        echo " 😁 TARGET     : $DEVICE_TARGET"
+        echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo "-----------------------------------------------------------"
 
     - name: Cache Toolchain
       if: env.CACHE_TOOLCHAIN == 'true'
@@ -96,6 +102,15 @@ jobs:
     - name: Install Feeds
       run: |
         cd $OPENWRT_PATH
+        
+        DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
+        DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        echo "-----------------------------------------------------------"
+        echo " 😁 NAME       : IPQ807X-WIFI"
+        echo " 😁 TARGET     : $DEVICE_TARGET"
+        echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo "-----------------------------------------------------------"
+        
         ./scripts/feeds update -a
         ./scripts/feeds install -a
   
@@ -105,11 +120,28 @@ jobs:
         cd $OPENWRT_PATH
         [ -f .config ] && rm -f .config
         curl -L -o .config https://raw.githubusercontent.com/aNzTikTok/openwrt-ci/main/raw/aw1000.config
-        cat .config
+        # cat .config
+
+        DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
+        DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        echo "-----------------------------------------------------------"
+        echo " 😁 NAME       : IPQ807X-WIFI"
+        echo " 😁 TARGET     : $DEVICE_TARGET"
+        echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo "-----------------------------------------------------------"
         
     - name: Download DL Package
       run: |
         cd $OPENWRT_PATH
+        
+        DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
+        DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        echo "-----------------------------------------------------------"
+        echo " 😁 NAME       : IPQ807X-WIFI"
+        echo " 😁 TARGET     : $DEVICE_TARGET"
+        echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo "-----------------------------------------------------------"
+        
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -119,6 +151,14 @@ jobs:
       id: compile
       run: |
         cd $OPENWRT_PATH
+        DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
+        DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        echo "-----------------------------------------------------------"
+        echo " 😁 NAME       : IPQ807X-WIFI"
+        echo " 😁 TARGET     : $DEVICE_TARGET"
+        echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo "-----------------------------------------------------------"
+        
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
