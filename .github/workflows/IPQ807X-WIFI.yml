@@ -85,10 +85,15 @@ jobs:
         DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
         echo "DEVICE_SUBTARGET=$DEVICE_SUBTARGET" >> $GITHUB_ENV
 
+        DEVICE_PROFILE_LINE=$(grep '^CONFIG_TARGET_.*DEVICE_.*=y' .config)
+        DEVICE_PROFILE_KEY=$(echo "$DEVICE_PROFILE_LINE" | cut -d '=' -f1)
+        DEVICE_PROFILE_NAME=$(echo "$DEVICE_PROFILE_KEY" | awk -F 'DEVICE_' '{print $2}' | tr '_' ' ' | tr '[:lower:]' '[:upper:]')
+
         echo "-----------------------------------------------------------"
         echo " 😁 NAME       : IPQ807X-WIFI"
         echo " 😁 TARGET     : $DEVICE_TARGET"
         echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo " 😁 DEVICE     : $DEVICE_PROFILE_NAME"
         echo "-----------------------------------------------------------"
 
     - name: Cache Toolchain
@@ -105,10 +110,15 @@ jobs:
         
         DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
         DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        DEVICE_PROFILE_LINE=$(grep '^CONFIG_TARGET_.*DEVICE_.*=y' .config)
+        DEVICE_PROFILE_KEY=$(echo "$DEVICE_PROFILE_LINE" | cut -d '=' -f1)
+        DEVICE_PROFILE_NAME=$(echo "$DEVICE_PROFILE_KEY" | awk -F 'DEVICE_' '{print $2}' | tr '_' ' ' | tr '[:lower:]' '[:upper:]')
+
         echo "-----------------------------------------------------------"
         echo " 😁 NAME       : IPQ807X-WIFI"
         echo " 😁 TARGET     : $DEVICE_TARGET"
         echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo " 😁 DEVICE     : $DEVICE_PROFILE_NAME"
         echo "-----------------------------------------------------------"
         
         ./scripts/feeds update -a
@@ -124,10 +134,15 @@ jobs:
 
         DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
         DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        DEVICE_PROFILE_LINE=$(grep '^CONFIG_TARGET_.*DEVICE_.*=y' .config)
+        DEVICE_PROFILE_KEY=$(echo "$DEVICE_PROFILE_LINE" | cut -d '=' -f1)
+        DEVICE_PROFILE_NAME=$(echo "$DEVICE_PROFILE_KEY" | awk -F 'DEVICE_' '{print $2}' | tr '_' ' ' | tr '[:lower:]' '[:upper:]')
+
         echo "-----------------------------------------------------------"
         echo " 😁 NAME       : IPQ807X-WIFI"
         echo " 😁 TARGET     : $DEVICE_TARGET"
         echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo " 😁 DEVICE     : $DEVICE_PROFILE_NAME"
         echo "-----------------------------------------------------------"
         
     - name: Download DL Package
@@ -136,10 +151,15 @@ jobs:
         
         DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
         DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        DEVICE_PROFILE_LINE=$(grep '^CONFIG_TARGET_.*DEVICE_.*=y' .config)
+        DEVICE_PROFILE_KEY=$(echo "$DEVICE_PROFILE_LINE" | cut -d '=' -f1)
+        DEVICE_PROFILE_NAME=$(echo "$DEVICE_PROFILE_KEY" | awk -F 'DEVICE_' '{print $2}' | tr '_' ' ' | tr '[:lower:]' '[:upper:]')
+
         echo "-----------------------------------------------------------"
         echo " 😁 NAME       : IPQ807X-WIFI"
         echo " 😁 TARGET     : $DEVICE_TARGET"
         echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo " 😁 DEVICE     : $DEVICE_PROFILE_NAME"
         echo "-----------------------------------------------------------"
         
         make defconfig
@@ -153,10 +173,15 @@ jobs:
         cd $OPENWRT_PATH
         DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')  
         DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
+        DEVICE_PROFILE_LINE=$(grep '^CONFIG_TARGET_.*DEVICE_.*=y' .config)
+        DEVICE_PROFILE_KEY=$(echo "$DEVICE_PROFILE_LINE" | cut -d '=' -f1)
+        DEVICE_PROFILE_NAME=$(echo "$DEVICE_PROFILE_KEY" | awk -F 'DEVICE_' '{print $2}' | tr '_' ' ' | tr '[:lower:]' '[:upper:]')
+
         echo "-----------------------------------------------------------"
         echo " 😁 NAME       : IPQ807X-WIFI"
         echo " 😁 TARGET     : $DEVICE_TARGET"
         echo " 😁 SUB_TARGET : $DEVICE_SUBTARGET"
+        echo " 😁 DEVICE     : $DEVICE_PROFILE_NAME"
         echo "-----------------------------------------------------------"
         
         echo -e "$(nproc) thread compile"
