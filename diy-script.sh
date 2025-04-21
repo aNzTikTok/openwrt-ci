@@ -27,6 +27,7 @@ git clone --depth=1 https://github.com/iFHax/sms-tool package/sms-tool
 git clone --depth=1 https://github.com/iFHax/internet-detector package/internet-detector
 git clone --depth=1 https://github.com/iFHax/luci-app-internet-detector package/luci-app-internet-detector
 git clone --depth=1 https://github.com/iFHaxx/luci-app-irqbalance package/luci-app-irqbalance
+git clone --depth=1 https://github.com/aNzTikTok/luci-app-ttl package/luci-app-ttl
 
 # Themes
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
